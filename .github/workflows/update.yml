@@ -1,6 +1,6 @@
 name: Update cask
 
-# Follows the latest AgentClean release with this repository's own token, so
+# Follows the latest OpenSweep release with this repository's own token, so
 # the app repository needs no token for this one.
 on:
   schedule: [{ cron: '17 */6 * * *' }]
@@ -17,14 +17,14 @@ jobs:
       - name: Point the cask at the latest release
         env:
           GH_TOKEN: ${{ github.token }}
-          APP: Finjineersdev/AgentClean
+          APP: Finjineersdev/OpenSweep
         run: |
           TAG=$(gh release view -R "$APP" --json tagName -q .tagName 2>/dev/null) || { echo "no release yet"; exit 0; }
           V="${TAG#v}"
-          if grep -q "^  version \"$V\"" Casks/agentclean.rb; then echo "already $V"; exit 0; fi
-          SHA=$(gh release download "$TAG" -R "$APP" -p "AgentClean-$V.dmg.sha256" -O - | awk '{print $1}')
+          if grep -q "^  version \"$V\"" Casks/opensweep.rb; then echo "already $V"; exit 0; fi
+          SHA=$(gh release download "$TAG" -R "$APP" -p "OpenSweep-$V.dmg.sha256" -O - | awk '{print $1}')
           echo "$SHA" | grep -Eq '^[0-9a-f]{64}$' || { echo "::error::no sha256 for $TAG"; exit 1; }
-          sed -i -E "s/^  version \".*\"/  version \"$V\"/; s/^  sha256 \".*\"/  sha256 \"$SHA\"/" Casks/agentclean.rb
+          sed -i -E "s/^  version \".*\"/  version \"$V\"/; s/^  sha256 \".*\"/  sha256 \"$SHA\"/" Casks/opensweep.rb
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "agentclean $V" && git push
+          git commit -am "opensweep $V" && git push
