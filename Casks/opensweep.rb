@@ -1,6 +1,6 @@
 cask "opensweep" do
-  version "0.0.0"
-  sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+  version "0.1.0"
+  sha256 "5b310eed1a7a28bedbc921ba6a0e56622dad64be26959a21a2ecf4add6d30925"
 
   url "https://github.com/Finjineersdev/OpenSweep/releases/download/v#{version}/OpenSweep-#{version}.dmg"
   name "OpenSweep"
