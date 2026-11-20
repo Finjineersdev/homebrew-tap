@@ -1,6 +1,7 @@
 # Finjineersdev Homebrew tap
 
 ```bash
+brew tap finjineersdev/tap && brew trust finjineersdev/tap   # once
 brew install --cask finjineersdev/tap/opensweep
 ```
 
